@@ -1,0 +1,14 @@
+from backend.models import get_orders
+from flask import Blueprint, jsonify
+
+order_bp = Blueprint('order_bp', __name__)
+
+
+@order_bp.route('/admin/orders', methods=['GET'])
+def get_all_orders():
+    try:
+        orders = get_orders()
+        return jsonify(orders), 200
+    except Exception as e:
+        print("❌ Error fetching orders:", e)
+        return jsonify({"error": str(e)}), 500
