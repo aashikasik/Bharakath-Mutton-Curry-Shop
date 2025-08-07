@@ -6,9 +6,6 @@ import random
 import time
 import os
 
-# Twilio (for WhatsApp notifications)
-from twilio.rest import Client
-
 app = Flask(__name__)
 CORS(app)
 
@@ -25,11 +22,6 @@ def get_db_connection():
         database="mutton_curry_order"
     )
 
-# Twilio Setup (you must add your credentials)
-TWILIO_ACCOUNT_SID = os.getenv("TWILIO_ACCOUNT_SID", "your_sid")
-TWILIO_AUTH_TOKEN = os.getenv("TWILIO_AUTH_TOKEN", "your_token")
-TWILIO_WHATSAPP_NUMBER = "whatsapp:+14155238886"  # Twilio sandbox number
-twilio_client = Client(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN)
 
 # Blueprint
 app.register_blueprint(order_bp)
@@ -93,8 +85,7 @@ def update_status(order_id):
         cursor.close()
         conn.close()
 
-        if user and user[0]:
-            send_whatsapp_notification(user[0], f"Your order #{order_id} is now: {new_status}")
+        # WhatsApp notification removed
 
         return jsonify({'message': 'Status updated successfully'})
     except Exception as e:
@@ -137,8 +128,7 @@ def generate_otp():
     otp = str(random.randint(100000, 999999))
     otp_store[phone] = {'otp': otp, 'timestamp': time.time()}
 
-    # Send OTP via WhatsApp (or SMS in real setup)
-    send_whatsapp_notification(phone, f"Your OTP is: {otp}")
+    # WhatsApp notification removed
 
     return jsonify({'message': f"OTP sent to {phone}."})
 
@@ -163,19 +153,6 @@ def verify_otp():
 
     return jsonify({'success': True, 'message': 'OTP verified successfully'})
 
-# ---------------------------
-# WHATSAPP NOTIFICATION (Twilio)
-# ---------------------------
-def send_whatsapp_notification(to_number, message):
-    try:
-        formatted_number = f"whatsapp:+91{to_number}" if not to_number.startswith("whatsapp:") else to_number
-        twilio_client.messages.create(
-            body=message,
-            from_=TWILIO_WHATSAPP_NUMBER,
-            to=formatted_number
-        )
-    except Exception as e:
-        print("WhatsApp Notification Failed:", e)
 
 # ---------------------------
 # Run Server
