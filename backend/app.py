@@ -1,4 +1,11 @@
 
+# ---------------------------
+# GET: Homepage Route
+# ---------------------------
+@app.route('/', methods=['GET'])
+def home():
+    return jsonify({'message': 'Mutton Curry Order System API is running.'})
+
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 from routes.order_routes import order_bp
@@ -18,6 +25,7 @@ CORS(
     expose_headers=["Content-Type", "Authorization", "Access-Control-Allow-Credentials", "Access-Control-Allow-Origin"]
 )
 
+
 # --- CORS Preflight Handler for all /api/* routes ---
 @app.route('/api/<path:path>', methods=['OPTIONS'])
 def api_options(path):
@@ -27,6 +35,13 @@ def api_options(path):
     response.headers.add('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS')
     response.headers.add('Access-Control-Allow-Credentials', 'true')
     return response
+
+# ---------------------------
+# GET: Homepage Route
+# ---------------------------
+@app.route('/', methods=['GET'])
+def home():
+    return jsonify({'message': 'Mutton Curry Order System API is running.'})
 
 # OTP Store (in-memory for now)
 otp_store = {}
