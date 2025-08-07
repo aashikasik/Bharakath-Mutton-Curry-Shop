@@ -153,6 +153,13 @@ def verify_otp():
 
     return jsonify({'success': True, 'message': 'OTP verified successfully'})
 
+# ---------------------------
+# Home Route
+# ---------------------------
+@app.route('/')
+def home():
+    return "Backend is running!"
+
 
 # ---------------------------
 # Run Server
