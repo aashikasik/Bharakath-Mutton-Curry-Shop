@@ -1,11 +1,4 @@
 
-# ---------------------------
-# GET: Homepage Route
-# ---------------------------
-@app.route('/', methods=['GET'])
-def home():
-    return jsonify({'message': 'Mutton Curry Order System API is running.'})
-
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 from routes.order_routes import order_bp
@@ -24,6 +17,13 @@ CORS(
     allow_headers=["Content-Type", "Authorization", "Access-Control-Allow-Credentials", "Access-Control-Allow-Origin"],
     expose_headers=["Content-Type", "Authorization", "Access-Control-Allow-Credentials", "Access-Control-Allow-Origin"]
 )
+
+# ---------------------------
+# GET: Homepage Route
+# ---------------------------
+@app.route('/', methods=['GET'])
+def home():
+    return jsonify({'message': 'Mutton Curry Order System API is running.'})
 
 
 # --- CORS Preflight Handler for all /api/* routes ---
