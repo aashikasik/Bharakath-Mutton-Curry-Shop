@@ -1,4 +1,4 @@
-
+psycopg2-binary
 flask
 flask-cors
 mysql-connector-python

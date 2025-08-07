@@ -1,7 +1,8 @@
+
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 from routes.order_routes import order_bp
-import mysql.connector
+import psycopg2
 import random
 import time
 import os
@@ -12,14 +13,14 @@ CORS(app)
 # OTP Store (in-memory for now)
 otp_store = {}
 
-# MySQL Connection Function
+# Postgres Connection Function
 def get_db_connection():
-    return mysql.connector.connect(
-        host="localhost",
-        port=3307,
-        user="root",
-        password='',
-        database="mutton_curry_order"
+    return psycopg2.connect(
+        host=os.environ.get('DB_HOST'),
+        port=int(os.environ.get('DB_PORT', 5432)),
+        user=os.environ.get('DB_USER'),
+        password=os.environ.get('DB_PASSWORD'),
+        dbname=os.environ.get('DB_NAME')
     )
 
 
