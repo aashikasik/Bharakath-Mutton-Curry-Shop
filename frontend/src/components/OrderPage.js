@@ -43,7 +43,13 @@ const OrderPage = () => {
 
     setLoading(true);
 
-    fetch('http://localhost:5000/api/orders', {
+    // Use Render backend in production, localhost in development
+    const API_URL =
+      window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+        ? 'http://localhost:5000/api/orders'
+        : 'https://bharakath-mutton-curry-backend.onrender.com/api/orders';
+
+    fetch(API_URL, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
