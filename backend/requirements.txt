@@ -3,4 +3,3 @@ flask-cors
 mysql-connector-python
 gunicorn
 bcrypt
-pyscopg2-binary
