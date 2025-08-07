@@ -18,12 +18,6 @@ CORS(
     expose_headers=["Content-Type", "Authorization", "Access-Control-Allow-Credentials", "Access-Control-Allow-Origin"]
 )
 
-# ---------------------------
-# GET: Homepage Route
-# ---------------------------
-@app.route('/', methods=['GET'])
-def home():
-    return jsonify({'message': 'Mutton Curry Order System API is running.'})
 
 
 # --- CORS Preflight Handler for all /api/* routes ---
