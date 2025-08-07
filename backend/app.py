@@ -6,6 +6,7 @@ import random
 import time
 import os
 
+
 app = Flask(__name__)
 CORS(app)
 
@@ -152,13 +153,6 @@ def verify_otp():
         return jsonify({'error': 'Invalid OTP'}), 401
 
     return jsonify({'success': True, 'message': 'OTP verified successfully'})
-
-# ---------------------------
-# Home Route
-# ---------------------------
-@app.route('/')
-def home():
-    return "Backend is running!"
 
 
 # ---------------------------
