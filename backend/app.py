@@ -8,7 +8,7 @@ import os
 
 
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": "*"}}, supports_credentials=True, allow_headers=["Content-Type", "Authorization"], methods=["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"])
+CORS(app, resources={r"/*": {"origins": "*"}}, supports_credentials=True)
 
 # OTP Store (in-memory for now)
 otp_store = {}
