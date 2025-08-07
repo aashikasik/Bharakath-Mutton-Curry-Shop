@@ -8,7 +8,7 @@ import os
 
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, origins=["https://bharakath-mutton-curry-shop.onrender.com"])
 
 # OTP Store (in-memory for now)
 otp_store = {}
