@@ -48,15 +48,15 @@ function Header({ toggleDarkMode, isDarkMode }) {
           style={{
             marginLeft: '12px',
             fontWeight: 'bold',
-            fontSize: 'clamp(1.1rem, 4vw, 2rem)',
+            fontSize: 'clamp(1.05rem, 3vw, 1.7rem)',
             color: '#B22222',
-            letterSpacing: '0.09em',
+            letterSpacing: '0.04em',
             display: 'flex',
             flexWrap: 'wrap',
             alignItems: 'center',
             minWidth: '120px',
             maxWidth: '100vw',
-            overflow: 'hidden',
+            overflow: 'visible',
             padding: '2px 8px',
             borderRadius: '6px',
             boxSizing: 'border-box',
@@ -65,28 +65,56 @@ function Header({ toggleDarkMode, isDarkMode }) {
             boxShadow: '0 2px 8px rgba(178,34,34,0.08)',
             borderBottom: '3px solid #FFD700',
             background: '#fff',
+            wordBreak: 'break-word',
+            flexDirection: 'row',
+            flexBasis: '100%',
           }}
         >
-          {Array.from('BHARAKATH MUTTON SHOP').map((char, i) => (
-            <span
-              key={i}
-              style={{
-                opacity: 0,
-                animation: `fadeInLetter 0.04s linear forwards`,
-                animationDelay: `${i * 0.08}s`,
-                marginRight: char === ' ' ? '0.1em' : '0',
-                display: 'inline-block',
-                fontFamily: 'Segoe UI, Arial, sans-serif',
-                fontWeight: 'bold',
-                color: '#B22222',
-                textShadow: '0 1px 4px rgba(178,34,34,0.10)',
-                borderRadius: '3px',
-                padding: '0 2px',
-              }}
-            >
-              {char}
-            </span>
-          ))}
+          {/* Render 'BHARAKATH MUTTON' on top, 'SHOP' below */}
+          <span style={{ width: '100%', display: 'block' }}>
+            {Array.from('BHARAKATH MUTTON').map((char, i) => (
+              <span
+                key={i}
+                style={{
+                  opacity: 0,
+                  animation: `fadeInLetter 0.04s linear forwards`,
+                  animationDelay: `${i * 0.08}s`,
+                  marginRight: char === ' ' ? '0.1em' : '0',
+                  display: 'inline-block',
+                  fontFamily: 'Segoe UI, Arial, sans-serif',
+                  fontWeight: 'bold',
+                  color: '#B22222',
+                  textShadow: '0 1px 4px rgba(178,34,34,0.10)',
+                  borderRadius: '3px',
+                  padding: '0 2px',
+                }}
+              >
+                {char}
+              </span>
+            ))}
+          </span>
+          <span style={{ width: '100%', display: 'block', marginTop: '2px', fontSize: '1.1em', letterSpacing: '0.12em', color: '#B22222', fontWeight: 'bold' }}>
+            {Array.from('SHOP').map((char, i) => (
+              <span
+                key={i + 100}
+                style={{
+                  opacity: 0,
+                  animation: `fadeInLetter 0.04s linear forwards`,
+                  animationDelay: `${(i + 16) * 0.08}s`,
+                  marginRight: '0',
+                  display: 'inline-block',
+                  fontFamily: 'Segoe UI, Arial, sans-serif',
+                  fontWeight: 'bold',
+                  color: '#B22222',
+                  textShadow: '0 1px 4px rgba(178,34,34,0.10)',
+                  borderRadius: '3px',
+                  padding: '0 2px',
+                }}
+              >
+                {char}
+              </span>
+            ))}
+          </span>
         </div>
       </div>
 
