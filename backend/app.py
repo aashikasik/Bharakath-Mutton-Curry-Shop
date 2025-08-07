@@ -1,3 +1,4 @@
+
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 from routes.order_routes import order_bp
@@ -5,7 +6,6 @@ import mysql.connector
 import random
 import time
 import os
-
 
 app = Flask(__name__)
 CORS(
@@ -17,6 +17,16 @@ CORS(
     allow_headers=["Content-Type", "Authorization", "Access-Control-Allow-Credentials", "Access-Control-Allow-Origin"],
     expose_headers=["Content-Type", "Authorization", "Access-Control-Allow-Credentials", "Access-Control-Allow-Origin"]
 )
+
+# --- CORS Preflight Handler for all /api/* routes ---
+@app.route('/api/<path:path>', methods=['OPTIONS'])
+def api_options(path):
+    response = jsonify({'message': 'CORS preflight OK'})
+    response.headers.add('Access-Control-Allow-Origin', 'https://bharakath-mutton-curry-shop.onrender.com')
+    response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization,Access-Control-Allow-Credentials,Access-Control-Allow-Origin')
+    response.headers.add('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS')
+    response.headers.add('Access-Control-Allow-Credentials', 'true')
+    return response
 
 # OTP Store (in-memory for now)
 otp_store = {}
