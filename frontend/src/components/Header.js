@@ -66,7 +66,7 @@ function Header({ toggleDarkMode, isDarkMode }) {
             background: '#fff',
           }}
         >
-          {Array.from('BHARAKATH MUTTON CURRY SHOP').map((char, i) => (
+          {Array.from('BHARAKATH MUTTON SHOP').map((char, i) => (
             <span
               key={i}
               style={{
