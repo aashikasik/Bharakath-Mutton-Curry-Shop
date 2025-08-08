@@ -7,15 +7,17 @@ import time
 import os
 
 app = Flask(__name__)
+
+# ✅ Allow your frontend origin + handle preflight OPTIONS requests
 CORS(
     app,
-    resources={r"/*": {"origins": ["https://bharakath-mutton-curry-shop.onrender.com"]}},
-    supports_credentials=True,
-    allow_headers=["Content-Type", "Authorization", "Access-Control-Allow-Credentials", "Access-Control-Allow-Origin"],
-    expose_headers=["Content-Type", "Authorization", "Access-Control-Allow-Credentials", "Access-Control-Allow-Origin"],
+    resources={r"/*": {"origins": [
+        "https://bharakath-mutton-curry-shop.onrender.com",
+        "http://localhost:3000"  # optional for local testing
+    ]}},
+    allow_headers=["Content-Type", "Authorization"],
     methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"]
 )
-
 
 # ---------------------------
 # GET: Test Database Connection
@@ -36,21 +38,12 @@ def test_db():
         print(traceback.format_exc())
         return jsonify({'success': False, 'error': str(e), 'traceback': traceback.format_exc()}), 500
 
-
-
-
-# ---------------------------
-# GET: Homepage Route
-# ---------------------------
 @app.route('/', methods=['GET']) 
 def home():
     return jsonify({'message': 'Mutton Curry Order System API is running.'})
 
-# OTP Store (in-memory for now)
 otp_store = {}
 
-
-# MySQL Connection Function
 def get_db_connection():
     return mysql.connector.connect(
         host="bfpp9qnobskouzfj8dds-mysql.services.clever-cloud.com",
@@ -60,13 +53,8 @@ def get_db_connection():
         database="bfpp9qnobskouzfj8dds"
     )
 
-
-# Blueprint
 app.register_blueprint(order_bp)
 
-# ---------------------------
-# GET: Fetch All Orders
-# ---------------------------
 @app.route('/api/orders', methods=['GET'])
 def get_all_orders():
     try:
@@ -80,9 +68,6 @@ def get_all_orders():
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
-# ---------------------------
-# GET: Fetch Order Status by ID
-# ---------------------------
 @app.route('/api/order-status/<int:order_id>', methods=['GET'])
 def get_order_status(order_id):
     try:
@@ -99,7 +84,7 @@ def get_order_status(order_id):
             return jsonify({'error': 'Order not found'}), 404
     except Exception as e:
         return jsonify({'error': str(e)}), 500 
-# ---------------------------
+
 @app.route('/api/update-status/<int:order_id>', methods=['POST'])
 def update_status(order_id):
     try:
@@ -114,21 +99,15 @@ def update_status(order_id):
         cursor.execute("UPDATE orders SET status = %s WHERE id = %s", (new_status, order_id))
         conn.commit()
 
-        # Fetch phone number of customer
         cursor.execute("SELECT phone FROM orders WHERE id = %s", (order_id,))
-        user = cursor.fetchone()
+        cursor.fetchone()
         cursor.close()
         conn.close()
-
-        # WhatsApp notification removed
 
         return jsonify({'message': 'Status updated successfully'})
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
-# ---------------------------
-# PUT: Alternate Update API
-# ---------------------------
 @app.route('/api/orders/<int:order_id>', methods=['PUT'])
 def update_order_status(order_id):
     try:
@@ -149,9 +128,6 @@ def update_order_status(order_id):
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
-# ---------------------------
-# POST: OTP Generation API
-# ---------------------------
 @app.route('/api/generate-otp', methods=['POST'])
 def generate_otp():
     data = request.get_json()
@@ -163,13 +139,8 @@ def generate_otp():
     otp = str(random.randint(100000, 999999))
     otp_store[phone] = {'otp': otp, 'timestamp': time.time()}
 
-    # WhatsApp notification removed
-
     return jsonify({'message': f"OTP sent to {phone}."})
 
-# ---------------------------
-# POST: OTP Verification API
-# ---------------------------
 @app.route('/api/verify-otp', methods=['POST'])
 def verify_otp():
     data = request.get_json()
@@ -188,9 +159,5 @@ def verify_otp():
 
     return jsonify({'success': True, 'message': 'OTP verified successfully'})
 
-
-# ---------------------------
-# Run Server
-# ---------------------------
 if __name__ == "__main__":
     app.run(debug=True)
