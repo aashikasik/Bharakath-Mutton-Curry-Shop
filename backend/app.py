@@ -9,7 +9,7 @@ import os
 app = Flask(__name__)
 CORS(
     app,
-    resources={r"/api/*": {"origins": "https://bharakath-mutton-curry-shop.onrender.com"}},
+    resources={r"/*": {"origins": ["https://bharakath-mutton-curry-shop.onrender.com"]}},
     supports_credentials=True,
     allow_headers=["Content-Type", "Authorization", "Access-Control-Allow-Credentials", "Access-Control-Allow-Origin"],
     expose_headers=["Content-Type", "Authorization", "Access-Control-Allow-Credentials", "Access-Control-Allow-Origin"],
