@@ -39,12 +39,23 @@ def test_db():
 # ---------------------------
 # GET: Homepage Route
 # ---------------------------
-@app.route('/', methods=['GET'])
+@app.route('/', methods=['GET']) 
 def home():
     return jsonify({'message': 'Mutton Curry Order System API is running.'})
 
 # OTP Store (in-memory for now)
 otp_store = {}
+
+# Global OPTIONS handler for CORS preflight requests
+@app.route('/api/<path:path>', methods=['OPTIONS'])
+def options_handler(path):
+    response = app.make_default_options_response()
+    headers = response.headers
+    headers['Access-Control-Allow-Origin'] = 'https://bharakath-mutton-curry-shop.onrender.com'
+    headers['Access-Control-Allow-Methods'] = 'GET,POST,PUT,DELETE,OPTIONS'
+    headers['Access-Control-Allow-Headers'] = 'Content-Type,Authorization,Access-Control-Allow-Credentials,Access-Control-Allow-Origin'
+    headers['Access-Control-Allow-Credentials'] = 'true'
+    return response
 
 # MySQL Connection Function
 def get_db_connection():
