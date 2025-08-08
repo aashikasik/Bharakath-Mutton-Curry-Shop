@@ -31,7 +31,10 @@ def test_db():
         conn.close()
         return jsonify({'success': True, 'message': 'Database connection successful.'})
     except Exception as e:
-        return jsonify({'success': False, 'error': str(e)}), 500
+        import traceback
+        print("❌ DB Test Error:", e)
+        print(traceback.format_exc())
+        return jsonify({'success': False, 'error': str(e), 'traceback': traceback.format_exc()}), 500
 
 
 

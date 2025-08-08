@@ -92,17 +92,17 @@ def save_order():
         address = data['address']
         item_name = data['item_name']
 
-        # ✅ Insert order and get order_id
         payment_status = data.get('payment_status', 'pending')
         payment_method = data.get('payment_method', 'cod')
-        # You may need to update your insert_order to accept payment_status and payment_method
         order_id = insert_order(name, phone, quantity, address, item_name, payment_status, payment_method)
 
         return jsonify({"message": "Order saved successfully!", "order_id": order_id}), 200
 
     except Exception as e:
-        print("❌ Error:", e)
-        return jsonify({"error": "Failed to save order"}), 500
+        import traceback
+        print("❌ Order Save Error:", e)
+        print(traceback.format_exc())
+        return jsonify({"error": "Failed to save order", "details": str(e), "traceback": traceback.format_exc()}), 500
 # -------------------------------
 # PATCH: Update Payment Status for an Order
 # -------------------------------
