@@ -49,16 +49,6 @@ def home():
 # OTP Store (in-memory for now)
 otp_store = {}
 
-# Global OPTIONS handler for CORS preflight requests
-@app.route('/api/<path:path>', methods=['OPTIONS'])
-def options_handler(path):
-    response = app.make_default_options_response()
-    headers = response.headers
-    headers['Access-Control-Allow-Origin'] = 'https://bharakath-mutton-curry-shop.onrender.com'
-    headers['Access-Control-Allow-Methods'] = 'GET,POST,PUT,DELETE,OPTIONS'
-    headers['Access-Control-Allow-Headers'] = 'Content-Type,Authorization,Access-Control-Allow-Credentials,Access-Control-Allow-Origin'
-    headers['Access-Control-Allow-Credentials'] = 'true'
-    return response
 
 # MySQL Connection Function
 def get_db_connection():
@@ -109,9 +99,6 @@ def get_order_status(order_id):
             return jsonify({'error': 'Order not found'}), 404
     except Exception as e:
         return jsonify({'error': str(e)}), 500
-
-# ---------------------------
-# POST: Update Order Status + WhatsApp Notification
 # ---------------------------
 @app.route('/api/update-status/<int:order_id>', methods=['POST'])
 def update_status(order_id):
