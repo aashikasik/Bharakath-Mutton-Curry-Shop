@@ -35,15 +35,6 @@ def test_db():
 
 
 
-# --- CORS Preflight Handler for all /api/* routes ---
-@app.route('/api/<path:path>', methods=['OPTIONS'])
-def api_options(path):
-    response = jsonify({'message': 'CORS preflight OK'})
-    response.headers.add('Access-Control-Allow-Origin', 'https://bharakath-mutton-curry-shop.onrender.com')
-    response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization,Access-Control-Allow-Credentials,Access-Control-Allow-Origin')
-    response.headers.add('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS')
-    response.headers.add('Access-Control-Allow-Credentials', 'true')
-    return response
 
 # ---------------------------
 # GET: Homepage Route
