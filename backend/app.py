@@ -98,7 +98,7 @@ def get_order_status(order_id):
         else:
             return jsonify({'error': 'Order not found'}), 404
     except Exception as e:
-        return jsonify({'error': str(e)}), 500
+        return jsonify({'error': str(e)}), 500 
 # ---------------------------
 @app.route('/api/update-status/<int:order_id>', methods=['POST'])
 def update_status(order_id):
