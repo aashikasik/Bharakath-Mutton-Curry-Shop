@@ -38,6 +38,6 @@ def view_orders():
     return jsonify(orders), 200
 
 @admin_routes.route('/api/admin/orders/clear', methods=['DELETE'])
-def clear_orders():
+def clear_all_orders_route():
     clear_orders()
     return jsonify({"message": "All orders cleared!"}), 200
