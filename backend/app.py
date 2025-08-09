@@ -1,6 +1,7 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 from routes.order_routes import order_bp
+from flask_cors import CORS as BlueprintCORS
 import mysql.connector
 import random
 import time
@@ -18,6 +19,9 @@ CORS(
     allow_headers=["Content-Type", "Authorization"],
     methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"]
 )
+
+# Apply CORS to blueprint as well
+BlueprintCORS(order_bp, origins=["https://bharakath-mutton-curry-shop.onrender.com"], supports_credentials=True)
 
 # ---------------------------
 # GET: Test Database Connection
