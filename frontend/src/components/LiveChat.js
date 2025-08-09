@@ -22,7 +22,7 @@ const LiveChat = () => {
     setLoading(true);
     setError('');
     try {
-      const res = await fetch(`http://localhost:5000/api/chat?phone=${phone}`);
+  const res = await fetch(`https://bharakath-mutton-curry-shop-1.onrender.com/api/chat?phone=${phone}`);
       const data = await res.json();
       if (res.ok) setMessages(data);
       else setError(data.error || 'Failed to fetch chat');
@@ -38,7 +38,7 @@ const LiveChat = () => {
     setLoading(true);
     setError('');
     try {
-      const res = await fetch('http://localhost:5000/api/chat', {
+  const res = await fetch('https://bharakath-mutton-curry-shop-1.onrender.com/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ phone, message: input, timestamp: new Date().toISOString() })

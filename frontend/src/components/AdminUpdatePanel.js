@@ -20,7 +20,7 @@ const AdminUpdatePanel = () => {
 
   const fetchOrders = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/orders');
+  const response = await axios.get('https://bharakath-mutton-curry-shop-1.onrender.com/api/orders');
       setOrders(response.data);
       const initialStatus = {};
       response.data.forEach(order => {
@@ -34,7 +34,7 @@ const AdminUpdatePanel = () => {
 
   const handleStatusChange = async (orderId, newStatus) => {
     try {
-      await axios.post(`http://localhost:5000/api/update-status/${orderId}`, {
+  await axios.post(`https://bharakath-mutton-curry-shop-1.onrender.com/api/update-status/${orderId}`, {
         status: newStatus,
       });
       setStatusMap(prev => ({ ...prev, [orderId]: newStatus }));

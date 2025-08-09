@@ -46,7 +46,7 @@ const OrderPage = () => {
     // Use Render backend in production, localhost in development
       const API_URL =
         window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
-          ? 'http://localhost:5000/api/orders'
+          ? 'https://bharakath-mutton-curry-shop-1.onrender.com/api/orders'
           : 'https://bharakath-mutton-curry-shop-1.onrender.com/api/orders';
 
     // Add timeout for fetch

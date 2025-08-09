@@ -12,7 +12,7 @@ const OrderHistory = () => {
     setError('');
     setOrders([]);
     try {
-      const res = await fetch(`http://localhost:5000/api/orders/history?phone=${phone}`);
+  const res = await fetch(`https://bharakath-mutton-curry-shop-1.onrender.com/api/orders/history?phone=${phone}`);
       const data = await res.json();
       if (res.ok) {
         setOrders(data);

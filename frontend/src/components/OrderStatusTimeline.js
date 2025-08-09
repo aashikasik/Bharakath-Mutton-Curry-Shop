@@ -11,7 +11,7 @@ function OrderStatusPage() {
   useEffect(() => {
     const fetchStatus = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/api/order-status/${orderId}`);
+  const response = await axios.get(`https://bharakath-mutton-curry-shop-1.onrender.com/api/order-status/${orderId}`);
         setStatus(response.data.status);
       } catch (err) {
         console.error('Error fetching order status:', err);

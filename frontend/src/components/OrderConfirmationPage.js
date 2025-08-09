@@ -9,7 +9,7 @@ const OrderConfirmationPage = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/api/orders/${orderId}`)
+  fetch(`https://bharakath-mutton-curry-shop-1.onrender.com/api/orders/${orderId}`)
       .then(res => res.json())
       .then(data => {
         setOrder(data);

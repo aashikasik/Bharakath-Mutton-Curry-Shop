@@ -9,7 +9,7 @@ const Recommendations = ({ phone }) => {
     if (!phone) return;
     setLoading(true);
     setError('');
-    fetch(`http://localhost:5000/api/recommendations?phone=${phone}`)
+  fetch(`https://bharakath-mutton-curry-shop-1.onrender.com/api/recommendations?phone=${phone}`)
       .then(res => res.json())
       .then(data => {
         if (data.recommendations) setRecommendations(data.recommendations);
