@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify
-from models import get_all_orders, clear_all_orders, check_admin_credentials
+from models import get_all_orders, clear_orders, check_admin_credentials
 
 admin_routes = Blueprint('admin_routes', __name__)
 
@@ -21,5 +21,5 @@ def view_orders():
 
 @admin_routes.route('/api/admin/orders/clear', methods=['DELETE'])
 def clear_orders():
-    clear_all_orders()
+    clear_orders()
     return jsonify({"message": "All orders cleared!"}), 200
