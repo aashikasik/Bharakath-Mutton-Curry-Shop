@@ -70,7 +70,10 @@ def get_all_orders():
         conn.close()
         return jsonify(orders)
     except Exception as e:
-        return jsonify({'error': str(e)}), 500
+        import traceback
+        print("❌ GET /api/orders error:", e)
+        print(traceback.format_exc())
+        return jsonify({'error': 'Failed to fetch orders', 'details': str(e), 'traceback': traceback.format_exc()}), 500
 
 @app.route('/api/order-status/<int:order_id>', methods=['GET'])
 def get_order_status(order_id):
