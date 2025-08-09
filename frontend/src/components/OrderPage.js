@@ -49,14 +49,25 @@ const OrderPage = () => {
           ? 'http://localhost:5000/api/orders'
           : 'https://bharakath-mutton-curry-shop-1.onrender.com/api/orders';
 
+    // Add timeout for fetch
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 10000); // 10s timeout
+
     fetch(API_URL, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(orderData)
+      body: JSON.stringify(orderData),
+      signal: controller.signal
     })
-      .then(res => res.json())
+      .then(res => {
+        clearTimeout(timeoutId);
+        if (!res.ok) {
+          return res.json().then(data => { throw new Error(data.error || 'Order failed'); });
+        }
+        return res.json();
+      })
       .then(data => {
         setLoading(false);
         setOrderDetails({
@@ -68,8 +79,15 @@ const OrderPage = () => {
       })
       .catch(err => {
         setLoading(false);
+        clearTimeout(timeoutId);
+        let msg = '❌ Something went wrong. Please try again.';
+        if (err.name === 'AbortError') {
+          msg = '❌ Request timed out. Please check your connection.';
+        } else if (err.message) {
+          msg = `❌ ${err.message}`;
+        }
         console.error('❌ Order failed:', err);
-        alert('❌ Something went wrong. Please try again.');
+        alert(msg);
       });
   };
 
