@@ -1,6 +1,7 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 from routes.order_routes import order_bp
+from routes.admin_routes import admin_routes
 from db_config import get_db_connection
 from flask_cors import CORS as BlueprintCORS
 import mysql.connector
@@ -83,6 +84,7 @@ def get_db_connection():
     )
 
 app.register_blueprint(order_bp)
+app.register_blueprint(admin_routes)
 
 @app.route('/api/orders', methods=['GET'])
 def get_all_orders():
