@@ -20,7 +20,7 @@ const AdminOrders = () => {
 
   const clearAllOrders = () => {
     if (window.confirm("Are you sure you want to delete all orders?")) {
-      fetch('https://bharakath-mutton-curry-shop-1.onrender.com/api/admin/orders', {
+  fetch('https://bharakath-mutton-curry-shop-1.onrender.com/api/admin/orders/clear', {
         method: 'DELETE',
       })
         .then(res => res.json())
