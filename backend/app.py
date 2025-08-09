@@ -9,6 +9,30 @@ import os
 
 app = Flask(__name__)
 
+# Create orders table if not exists
+def create_orders_table():
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS orders (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            name VARCHAR(100),
+            phone VARCHAR(20),
+            quantity VARCHAR(10),
+            address VARCHAR(255),
+            item_name VARCHAR(100),
+            status VARCHAR(50) DEFAULT 'Order Received',
+            payment_status VARCHAR(50) DEFAULT 'pending',
+            payment_method VARCHAR(50) DEFAULT 'cod',
+            order_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        )
+    ''')
+    conn.commit()
+    cursor.close()
+    conn.close()
+
+create_orders_table()
+
 # ✅ Allow your frontend origin + handle preflight OPTIONS requests
 CORS(
     app,
