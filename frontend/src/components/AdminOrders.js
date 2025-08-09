@@ -12,7 +12,7 @@ const AdminOrders = () => {
   const [statusFilter, setStatusFilter] = useState('All');
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/orders')
+    fetch('http://bfpp9qnobskouzfj8dds-mysql.services.clever-cloud.com/api/orders')
       .then(res => res.json())
       .then(data => setOrders(data))
       .catch(err => console.error("Error fetching orders:", err));
@@ -20,7 +20,7 @@ const AdminOrders = () => {
 
   const clearAllOrders = () => {
     if (window.confirm("Are you sure you want to delete all orders?")) {
-      fetch('http://localhost:5000/api/orders', {
+      fetch('http://bfpp9qnobskouzfj8dds-mysql.services.clever-cloud.com/api/orders', {
         method: 'DELETE',
       })
         .then(res => res.json())
@@ -30,7 +30,7 @@ const AdminOrders = () => {
   };
 
   const updateOrderStatus = (orderId, newStatus) => {
-    fetch(`http://localhost:5000/api/orders/${orderId}`, {
+    fetch(`http://bfpp9qnobskouzfj8dds-mysql.services.clever-cloud.com/api/orders/${orderId}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ status: newStatus }),
