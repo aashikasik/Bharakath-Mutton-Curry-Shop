@@ -1,6 +1,7 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 from routes.order_routes import order_bp
+from db_config import get_db_connection
 from flask_cors import CORS as BlueprintCORS
 import mysql.connector
 import random
